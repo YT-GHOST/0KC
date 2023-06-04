@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yes/No Question Probability</title>
+  <script>
+    function calculateProbability() {
+      // Get the user's question
+      var question = document.getElementById("question").value;
+
+      // Make an API call to get the probability score
+      // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
+      fetch('YOUR_API_ENDPOINT', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question: question })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Display the probability score
+        var probability = data.probability;
+        document.getElementById("result").innerHTML = "Probability: " + probability;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById("result").innerHTML = "Error occurred. Please try again.";
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>Yes/No Question Probability</h1>
+  <input type="text" id="question" placeholder="Ask a yes/no question">
+  <button onclick="calculateProbability()">Calculate</button>
+  <p id="result"></p>
+</body>
+</html>
